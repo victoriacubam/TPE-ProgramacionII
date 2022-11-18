@@ -36,6 +36,33 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 		this.ordenarElementos();
 	}
 	
+	public void ordenarElementos() {	
+		System.out.println("hola");
+		Nodo<T> anterior = this.primerNodo;
+		Nodo<T> siguiente = anterior.getSiguiente();
+		Nodo<T> aux;
+
+		for (int i = 1; i<this.cantidadElementos(); i++) {
+			System.out.println("hola for");
+
+			for (int j = 0; j < this.cantidadElementos()-1; j++) {
+				System.out.println("hola for2");
+
+				int resultado = this.orden.compare(anterior.getValor(), siguiente.getValor()); // <0  anterior < siguiente  //  >0 anterior > siguiente
+				if (resultado>0) {
+					aux = siguiente;
+					anterior = siguiente;
+					siguiente = aux.getSiguiente();
+					System.out.println("soguiente" +siguiente);
+
+				}
+				if (resultado<0) {
+					System.out.println("hola if 2");
+				}
+			}
+		}
+	}
+	
 	public int cantidadElementos() {
 		int cantidad = 0;
 		Nodo<T> aux = this.primerNodo;
@@ -63,35 +90,31 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 		else {
 			Nodo<T> anterior = this.primerNodo;
 			int i = 0;
-			while (i<this.cantidadElementos()) {
+			while (anterior!=null) {
 				int resultado = this.orden.compare(anterior.getValor(), nuevo.getValor()); // <0  anterior < nuevo  //  >0 anterior > nuevo
 				int resultado2 = 0; // <0  nuevo < siguiente  //  >0 nuevo > siguiente
 				if(anterior.getSiguiente()!=null)
 					resultado2 = this.orden.compare(nuevo.getValor(), anterior.getSiguiente().getValor()); // <0  nuevo < siguiente  //  >0 nuevo > siguiente
 
-				/*if (resultado>0) {
-					nuevo.setSiguiente(anterior.getSiguiente());
-					anterior.setSiguiente(nuevo);
-				}*/	
-				
 				//Si nuevo es menor que anterior y anterior es el primer nodo, 
 				//el siguiente de nuevo se vuelve el primernodo y primernodo se vuelve nuevo
 				if(resultado>0 && anterior==this.primerNodo) {
 					nuevo.setSiguiente(this.primerNodo);       
 					this.primerNodo = nuevo;
-					break;
-					
+					break;	
+				} 
 				// Si nuevo es mayor que anterior y el siguiente de anterior en null entonces se agrega al final	
-				} else if(resultado<0 && anterior.getSiguiente()==null) {
+				else if(resultado<0 && anterior.getSiguiente()==null) {
 					anterior.setSiguiente(nuevo);
-					break;
-					
+					break;	
+				} 
 				//Si nuevo es mayor que anterior y nuevo es menor que siguiente
-				} else if(resultado<0 && resultado2<0) {
+				else if(resultado<0 && resultado2<0) {
 					nuevo.setSiguiente(anterior.getSiguiente());
 					anterior.setSiguiente(nuevo);
 				}
-				i++;
+
+				anterior = anterior.getSiguiente();
 			}
 		}
 	}
@@ -146,57 +169,44 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 	}
 	
 	public void eliminarElemento(T elemento) {
-		Nodo<T> actual = this.primerNodo;
+		Nodo<T> actual = this.getPrimerNodo();
 		Nodo<T> anterior = null;
-		for(actual=this.primerNodo; actual!=null;actual=actual.getSiguiente()) {
-			if(elemento.equals(actual.getValor())) {
-				if(actual == this.primerNodo) {
-					this.setPrimerNodo(actual.getSiguiente());
-					anterior  = actual;
-				}
-				anterior.setSiguiente(actual.getSiguiente());
+		for(actual = this.primerNodo; actual!=null; actual = actual.getSiguiente()) {
+			//Si actual no es igual al elemento q busco, anterior se vuele actual y actual se vuele actual.getSiguiente
+			if(!actual.getValor().equals(elemento)) {
+				anterior = actual;
 			}
-			//anterior = actual;
+			//Si actual es el elemento que busco
+			if(actual.getValor().equals(elemento)) { 
+				//El que quiero eliminar es el primero
+				if(actual==this.getPrimerNodo()) {
+					this.setPrimerNodo(actual.getSiguiente());
+				}
+				//El que quiero eliminar no es el primero
+				else {
+					anterior.setSiguiente(actual.getSiguiente());
+				}
+			}
 		}
-		/*System.out.println("elimino");
-		int pos = obtenerPosicion(elemento);
-		eliminarElementoByPos(pos);*/
-		
 	}
 	
-	
 	public int obtenerPosicion(T elemento) {
-		System.out.println("pos");
-		int posicion = 1;
+		int posicion = 0;
 		Nodo<T> aux = this.primerNodo;
-		while(!aux.equals(elemento)) {
+		while(!aux.getValor().equals(elemento)) {
 			if(aux.getSiguiente()!=null) {
 				aux = aux.getSiguiente();
 				posicion++;
+			} else {
+				break;
 			}
+		} 
+		
+		if(aux.getValor().equals(elemento)) {
+			return posicion;
+		} else {
+			return -1;
 		}
-		return posicion;
-	}
-	
-	
-	
-	public void ordenarElementos() {	
-		for (int i = 1; i<this.cantidadElementos(); i++) {
-			for (int j = 0; j < this.cantidadElementos()-1; j++) {
-				Nodo<T> anterior = this.primerNodo;
-				Nodo<T> siguiente = anterior.getSiguiente();
-				Nodo<T> aux;
-				int resultado = this.orden.compare(anterior.getValor(), siguiente.getValor()); // <0  anterior < siguiente  //  >0 anterior > siguiente
-				if (resultado>0) {
-					aux = siguiente;
-					anterior = siguiente;
-					siguiente = aux.getSiguiente();
-				}
-			}
-		}
-	}
-	
-	
-	
+	}	
 	
 }
