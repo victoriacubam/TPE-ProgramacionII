@@ -2,7 +2,6 @@ package tpe;
 import java.util.Comparator;
 import java.util.Iterator;
 import tpe.comparadores.*;
-import tpe.comparadores.alumno.*;
 import tpe.punto1.*;
 import tpe.punto2.*;
 import tpe.punto3.*;
