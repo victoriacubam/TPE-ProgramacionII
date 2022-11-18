@@ -2,7 +2,9 @@ package punto2;
 
 import java.util.ArrayList;
 
-public class Alumno implements Comparable<Alumno>{
+import punto3.Elemento;
+
+public class Alumno extends Elemento implements Comparable<Alumno> {
 	String nombre, apellido;
 	int dni, edad;
 	ArrayList<String> intereses;
@@ -50,9 +52,17 @@ public class Alumno implements Comparable<Alumno>{
 	public ArrayList<String> getIntereses() {
 		return new ArrayList<>(this.intereses);
 	}
+	
+	public int getCantidadAlumnos() {
+		return 1;
+	}
 
 	@Override
 	public int compareTo(Alumno o) {
 		return this.getApellido().compareTo(o.getApellido());
-	}	
+	}
+	
+	public String toString() {
+		return (this.getNombre() + " " + this.getApellido());
+	}
 }

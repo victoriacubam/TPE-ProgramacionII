@@ -7,6 +7,7 @@ import punto1.ListaVinculada;
 import punto1.Nodo;
 import punto2.Alumno;
 import punto2.comparadores.*;
+import punto3.*;
 
 
 public class Main {
@@ -66,8 +67,8 @@ public class Main {
 		
 		// f)
 		System.out.println("f)");
-		int posicion1 = l2.obtenerPosicion((T)s1);
-		System.out.println("<"+s1+"> esta en la posicion: " + posicion1);
+		int posicion1 = l2.obtenerPosicion((T)s3);
+		System.out.println("<"+s3+"> esta en la posicion: " + posicion1);
 		
 		// g)
 		System.out.println("g)");
@@ -85,11 +86,83 @@ public class Main {
 		imprimirLista(l2);
 
 		// i)
-		//System.out.println("i)");
-
-
-
+		System.out.println("i) Estructuras incorporadas a la lista ordenadas por cantidad de alumnos descendente");
 		
+		ComparadorCantidadMayor comparadorCant = new ComparadorCantidadMayor();
+
+		ListaVinculada<T> l3 = new ListaVinculada<T>((Comparator<T>) comparadorCant);
+		
+		//Universidad
+		Grupo unicen = new Grupo("Unicen");
+		//Facultades
+		Grupo exactas = new Grupo("Exactas");
+		Grupo humanas = new Grupo("Humanas");
+		//Materia
+		Grupo Historia = new Grupo("Historia");
+		//Alumno
+		Alumno a1 = new Alumno("Jhon", "Doe", 1200000, 0);
+		Alumno a2 = new Alumno("Federico", "Lopez", 35999888, 0);
+		Alumno a3 = new Alumno("Juana", "Garcia", 27123455, 0);
+		Alumno a4 = new Alumno("Mora", "Diaz", 37124425, 0);
+		Alumno a5 = new Alumno("Flora", "Rivas", 34555111, 0);
+		Alumno a6 = new Alumno("Martin", "Gomez", 34111222, 0);
+		Alumno a7 = new Alumno("Roman", "Bazan", 32555111, 0);
+		
+		a1.addIntereses("intercambio");
+		a2.addIntereses("redes");
+		a2.addIntereses("php");
+		a2.addIntereses("java");
+		a2.addIntereses("Python");
+		a3.addIntereses("programacion");
+		a3.addIntereses("php");
+		a3.addIntereses("java");
+		a4.addIntereses("psicologia");
+		a4.addIntereses("Freud");
+		a5.addIntereses("historia");
+		a5.addIntereses("antigua");
+		a6.addIntereses("romanos");
+		a6.addIntereses("egipcios");
+		a6.addIntereses("griegos");
+		a7.addIntereses("argentina");
+		
+		Historia.addElemento(a5);
+		Historia.addElemento(a6);
+		Historia.addElemento(a7);
+		
+		humanas.addElemento(Historia);
+		humanas.addElemento(a4);
+		
+		exactas.addElemento(a2);
+		exactas.addElemento(a3);
+		
+		unicen.addElemento(exactas);
+		unicen.addElemento(humanas);
+		unicen.addElemento(a1);
+		
+		l3.insertarOrdenado((T) unicen);
+
+		Grupo olimpiadas = new Grupo("Olimpiadas Matematica");
+		Grupo matea2 = new Grupo("Matea2");
+		Grupo losFibo = new Grupo("LosFibo");
+		
+		Alumno a8 = new Alumno("Juan","Juarez",33222444,0);
+		Alumno a9 = new Alumno("Julio","Cesar",33222111,0);
+		Alumno a10 = new Alumno("Bernardino","Rivas",30987654,0);
+		Alumno a11 = new Alumno("Jose","Paso",33322112,0);
+		Alumno a12 = new Alumno("Isaac","Newton",12343565,0);
+		
+		matea2.addElemento(a8);
+		matea2.addElemento(a9);
+		
+		losFibo.addElemento(a10);
+		losFibo.addElemento(a11);
+		losFibo.addElemento(a12);
+		
+		olimpiadas.addElemento(matea2);
+		olimpiadas.addElemento(losFibo);
+		
+		l3.insertarOrdenado((T)olimpiadas);
+		imprimirLista(l3);
 	}
 	
 	public static <T> void imprimirLista(ListaVinculada<T> l) {

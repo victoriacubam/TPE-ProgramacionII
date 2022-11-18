@@ -36,31 +36,33 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 		this.ordenarElementos();
 	}
 	
-	public void ordenarElementos() {	
-		System.out.println("hola");
-		Nodo<T> anterior = this.primerNodo;
-		Nodo<T> siguiente = anterior.getSiguiente();
-		Nodo<T> aux;
-
-		for (int i = 1; i<this.cantidadElementos(); i++) {
-			System.out.println("hola for");
-
-			for (int j = 0; j < this.cantidadElementos()-1; j++) {
-				System.out.println("hola for2");
-
-				int resultado = this.orden.compare(anterior.getValor(), siguiente.getValor()); // <0  anterior < siguiente  //  >0 anterior > siguiente
-				if (resultado>0) {
-					aux = siguiente;
-					anterior = siguiente;
-					siguiente = aux.getSiguiente();
-					System.out.println("soguiente" +siguiente);
-
-				}
-				if (resultado<0) {
-					System.out.println("hola if 2");
-				}
-			}
-		}
+	public void ordenarElementos() {
+	        for (int i = 1; i<this.cantidadElementos(); i++) {
+	        	Nodo<T> anterior = null;
+	        	Nodo<T> actual = this.primerNodo;
+	            Nodo<T> siguiente = this.primerNodo.getSiguiente();
+	            while ( siguiente != null ) {
+	                if (this.orden.compare(actual.getValor(), siguiente.getValor())>0) {
+	                    if (anterior != null ) {
+	                    	Nodo<T> sig = siguiente.getSiguiente();
+	                        anterior.setSiguiente(siguiente);;
+	                        siguiente.setSiguiente(actual);;
+	                        actual.setSiguiente(sig);;
+	                    } else {
+	                    	Nodo<T> sig = siguiente.getSiguiente();
+	                        this.primerNodo = siguiente;
+	                        siguiente.setSiguiente(actual);
+	                        actual.setSiguiente(sig);
+	                    }
+	                    anterior = siguiente;
+	                    siguiente = actual.getSiguiente();
+	                } else { 
+	                    anterior = actual;
+	                    actual = siguiente;
+	                    siguiente = siguiente.getSiguiente();
+	                }
+	            } 
+	        }
 	}
 	
 	public int cantidadElementos() {
