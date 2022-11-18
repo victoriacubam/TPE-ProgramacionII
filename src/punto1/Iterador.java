@@ -5,6 +5,10 @@ import java.util.Iterator;
 public class Iterador<T> implements Iterator<T> {
 	Nodo<T> puntero;
 	
+	public Iterador(Nodo<T> puntero) {
+		this.puntero = puntero;
+	}
+	
 	@Override
 	public boolean hasNext() {
 		return this.puntero!=null;

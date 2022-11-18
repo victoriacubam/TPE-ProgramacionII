@@ -20,10 +20,14 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 		return this.primerNodo;
 	}
 	
+	public void setPrimerNodo(Nodo<T> nodo){
+		this.primerNodo= nodo;
+	}
+	
 	
 	@Override
 	public Iterator<ListaVinculada<T>> iterator() {
-		Iterador iterador = new Iterador();
+		Iterador iterador = new Iterador(this.getPrimerNodo());
 		return iterador;
 	}
 
@@ -122,7 +126,6 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 	
 	public void eliminarElementoByPos(int posicion) {
 		int contador = 1;
-		System.out.println("elimino by pos");
 		if(this.primerNodo!=null) {
 			if(posicion == 1) {
 				this.primerNodo = this.primerNodo.getSiguiente();
@@ -143,10 +146,24 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 	}
 	
 	public void eliminarElemento(T elemento) {
-		System.out.println("elimino");
+		Nodo<T> actual = this.primerNodo;
+		Nodo<T> anterior = null;
+		for(actual=this.primerNodo; actual!=null;actual=actual.getSiguiente()) {
+			if(elemento.equals(actual.getValor())) {
+				if(actual == this.primerNodo) {
+					this.setPrimerNodo(actual.getSiguiente());
+					anterior  = actual;
+				}
+				anterior.setSiguiente(actual.getSiguiente());
+			}
+			//anterior = actual;
+		}
+		/*System.out.println("elimino");
 		int pos = obtenerPosicion(elemento);
-		eliminarElementoByPos(pos);
+		eliminarElementoByPos(pos);*/
+		
 	}
+	
 	
 	public int obtenerPosicion(T elemento) {
 		System.out.println("pos");
