@@ -7,6 +7,8 @@ public abstract class Elemento {
 	}
 	public abstract int getCantidadAlumnos();
 	
+	public abstract boolean equals(Object o);
+	
 	public String getNombre() {
 		return nombre;
 	}

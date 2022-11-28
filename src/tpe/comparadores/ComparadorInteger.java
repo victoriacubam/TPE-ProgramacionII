@@ -2,7 +2,7 @@ package tpe.comparadores;
 
 import java.util.Comparator;
 
-public class ComparadorValor implements Comparator<Integer>{
+public class ComparadorInteger implements Comparator<Integer>{
 
 	@Override
 	public int compare(Integer o1, Integer o2) {

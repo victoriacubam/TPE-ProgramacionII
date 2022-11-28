@@ -1,4 +1,5 @@
 package tpe;
+import java.util.Comparator;
 import java.util.Iterator;
 import tpe.comparadores.*;
 import tpe.punto1.*;
@@ -12,7 +13,7 @@ public class Main {
 		
 		// a)
 		
-		ComparadorValor comparadorEnteros = new ComparadorValor();
+		Comparator<Integer> comparadorEnteros = new ComparadorInteger();
 		
 		ListaVinculada<Integer> l1 = new ListaVinculada<Integer>(comparadorEnteros);
 		
@@ -29,10 +30,12 @@ public class Main {
 		l1.insertarOrdenado(n5);
 		
 		// b)
+		
 		System.out.println("b) Recorrer la lista creada e imprimirla");
 		imprimirLista(l1);
 		
 		// c)
+		
 		System.out.println("c) Se elimina el elemento en la primer posicion (1), se eliminan dado el elemento los elementos 5 y 11");
 		
 		l1.eliminarElementoByPos(1); // 1		
@@ -42,7 +45,8 @@ public class Main {
 		imprimirLista(l1);
 		
 		// d)
-		ComparadorString comparadorString = new ComparadorString();
+		
+		Comparator<String> comparadorString = new ComparadorString();
 		
 		ListaVinculada<String> l2 = new ListaVinculada<String>(comparadorString);
 		
@@ -62,11 +66,13 @@ public class Main {
 		imprimirLista(l2);
 		
 		// f)
+		
 		System.out.println("f)");
 		int posicion1 = l2.obtenerPosicion(s3);
 		System.out.println("<"+s3+"> esta en la posicion: " + posicion1);
 		
 		// g)
+		
 		System.out.println("g)");
 		
 		String s5 = "Recuperatorio";
@@ -76,15 +82,16 @@ public class Main {
 		// h)
 		
 		System.out.println("h) Lista ordenada descendentemente");
-		ComparadorNot comparadorStringDesc = new ComparadorNot(comparadorString);
+		Comparator<String> comparadorNot = new ComparadorNot<String>(comparadorString);
 		
-		l2.setOrden(comparadorStringDesc);
+		l2.setOrden(comparadorNot);
 		imprimirLista(l2);
 
 		// i)
-		System.out.println("i) Estructuras incorporadas a la lista ordenadas por cantidad de alumnos descendente");
 		
-		ComparadorCantidadMayor comparadorCant = new ComparadorCantidadMayor();
+		System.out.println("i) Estructuras incorporadas a la lista ordenadas por cantidad de alumnos");
+		
+		Comparator<Grupo> comparadorCant = new ComparadorCantidadMayor();
 
 		ListaVinculada<Grupo> l3 = new ListaVinculada<Grupo>(comparadorCant);
 		
@@ -95,7 +102,7 @@ public class Main {
 		Grupo humanas = new Grupo("Humanas");
 		//Materia
 		Grupo Historia = new Grupo("Historia");
-		//Alumno
+		//Alumnos
 		Alumno a1 = new Alumno("Jhon", "Doe", 1200000, 0);
 		Alumno a2 = new Alumno("Federico", "Lopez", 35999888, 0);
 		Alumno a3 = new Alumno("Juana", "Garcia", 27123455, 0);
@@ -159,14 +166,6 @@ public class Main {
 		
 		l3.insertarOrdenado(olimpiadas);
 		imprimirLista(l3);
-	}
-	
-	public static <T> void imprimirLista2(ListaVinculada<T> l) {
-		Iterator<T> iter = l.iterator();
-		while (iter.hasNext()) {
-			T next = iter.next();
-			System.out.println(next); 
-		}
 	}
 	
 	public static <T> void imprimirLista(ListaVinculada<T> l) {

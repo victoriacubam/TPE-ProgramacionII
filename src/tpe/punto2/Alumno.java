@@ -60,7 +60,6 @@ public class Alumno extends Elemento {
 		}
 	}
 	
-	
 	public String toString() {
 		return (this.getNombre() + " " + this.getApellido());
 	}
