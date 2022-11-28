@@ -3,7 +3,7 @@ package tpe.punto1;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
+public class ListaVinculada<T>  implements Iterable<T>{
 	private Nodo<T> primerNodo;
 	private Comparator<T> orden;
 
@@ -24,10 +24,9 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 		this.primerNodo= nodo;
 	}
 	
-	
 	@Override
-	public Iterator<ListaVinculada<T>> iterator() {
-		Iterador iterador = new Iterador(this.getPrimerNodo());
+	public Iterator<T> iterator() {
+		Iterador<T> iterador = new Iterador<T>(this.getPrimerNodo());
 		return iterador;
 	}
 
@@ -81,7 +80,6 @@ public class ListaVinculada<T>  implements Iterable<ListaVinculada<T>>{
 			this.primerNodo = nuevo;
 		else {
 			Nodo<T> anterior = this.primerNodo;
-			int i = 0;
 			while (anterior!=null) {
 				int resultado = this.orden.compare(anterior.getValor(), nuevo.getValor());
 				int resultado2 = 0;

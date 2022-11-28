@@ -4,25 +4,17 @@ import java.util.ArrayList;
 
 import tpe.punto3.Elemento;
 
-public class Alumno extends Elemento implements Comparable<Alumno> {
-	String nombre, apellido;
+public class Alumno extends Elemento {
+	String apellido;
 	int dni, edad;
 	ArrayList<String> intereses;
 
 	public Alumno(String nombre, String apellido, int edad, int dni) {
-		this.nombre = nombre;
+		super(nombre);
 		this.apellido = apellido;
 		this.edad = edad;
 		this.dni = dni;
 		this.intereses = new ArrayList<>();
-	}
-	
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
 	}
 	
 	public String getApellido() {
@@ -46,7 +38,8 @@ public class Alumno extends Elemento implements Comparable<Alumno> {
 	}
 
 	public void addIntereses(String palabra) {
-		this.intereses.add(palabra);
+		if(!this.intereses.contains(palabra))
+			this.intereses.add(palabra);
 	}
 	
 	public ArrayList<String> getIntereses() {
@@ -56,11 +49,17 @@ public class Alumno extends Elemento implements Comparable<Alumno> {
 	public int getCantidadAlumnos() {
 		return 1;
 	}
-
-	@Override
-	public int compareTo(Alumno o) {
-		return this.getApellido().compareTo(o.getApellido());
+	
+	public boolean equals(Object a) {
+		try {
+			Alumno otro = (Alumno)a;
+			return this.getNombre().equals(otro.getNombre())&&this.getApellido().equals(otro.getApellido())&&
+					this.getDni()==otro.getDni()&&this.getEdad()==otro.getEdad()&&this.getIntereses().equals(otro.getIntereses()); //El arraylist es asi?
+		} catch (Exception e) {
+			return false;
+		}
 	}
+	
 	
 	public String toString() {
 		return (this.getNombre() + " " + this.getApellido());

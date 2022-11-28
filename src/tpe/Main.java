@@ -1,5 +1,4 @@
 package tpe;
-import java.util.Comparator;
 import java.util.Iterator;
 import tpe.comparadores.*;
 import tpe.punto1.*;
@@ -7,6 +6,7 @@ import tpe.punto2.*;
 import tpe.punto3.*;
 
 public class Main {
+	
 
 	public static <T> void main(String[] args) {
 		
@@ -14,7 +14,7 @@ public class Main {
 		
 		ComparadorValor comparadorEnteros = new ComparadorValor();
 		
-		ListaVinculada<T> l1 = new ListaVinculada<T>((Comparator<T>) comparadorEnteros);
+		ListaVinculada<Integer> l1 = new ListaVinculada<Integer>(comparadorEnteros);
 		
 		Integer n1 = 10;
 		Integer n2 = 21;
@@ -22,11 +22,11 @@ public class Main {
 		Integer n4 = 5;
 		Integer n5 = 11;
 
-		l1.insertarOrdenado((T)n1);
-		l1.insertarOrdenado((T)n2);
-		l1.insertarOrdenado((T)n3);
-		l1.insertarOrdenado((T)n4);
-		l1.insertarOrdenado((T)n5);
+		l1.insertarOrdenado(n1);
+		l1.insertarOrdenado(n2);
+		l1.insertarOrdenado(n3);
+		l1.insertarOrdenado(n4);
+		l1.insertarOrdenado(n5);
 		
 		// b)
 		System.out.println("b) Recorrer la lista creada e imprimirla");
@@ -36,25 +36,25 @@ public class Main {
 		System.out.println("c) Se elimina el elemento en la primer posicion (1), se eliminan dado el elemento los elementos 5 y 11");
 		
 		l1.eliminarElementoByPos(1); // 1		
-		l1.eliminarElemento((T)n4);  // 5
-		l1.eliminarElemento((T)n5);  // 11
+		l1.eliminarElemento(n4);  // 5
+		l1.eliminarElemento(n5);  // 11
 		
 		imprimirLista(l1);
 		
 		// d)
 		ComparadorString comparadorString = new ComparadorString();
 		
-		ListaVinculada<T> l2 = new ListaVinculada<T>((Comparator<T>) comparadorString);
+		ListaVinculada<String> l2 = new ListaVinculada<String>(comparadorString);
 		
 		String s1 = "Facil";
 		String s2 = "Es";
 		String s3 = "Parcial";
 		String s4 = "Prog 2";
 		
-		l2.insertarOrdenado((T)s1);
-		l2.insertarOrdenado((T)s2);
-		l2.insertarOrdenado((T)s3);
-		l2.insertarOrdenado((T)s4);
+		l2.insertarOrdenado(s1);
+		l2.insertarOrdenado(s2);
+		l2.insertarOrdenado(s3);
+		l2.insertarOrdenado(s4);
 		
 		// e)
 		
@@ -63,22 +63,22 @@ public class Main {
 		
 		// f)
 		System.out.println("f)");
-		int posicion1 = l2.obtenerPosicion((T)s3);
+		int posicion1 = l2.obtenerPosicion(s3);
 		System.out.println("<"+s3+"> esta en la posicion: " + posicion1);
 		
 		// g)
 		System.out.println("g)");
 		
 		String s5 = "Recuperatorio";
-		int posicion2 = l2.obtenerPosicion((T)s5);
+		int posicion2 = l2.obtenerPosicion(s5);
 		System.out.println("<"+ s5 + "> esta en la posicion: " + posicion2);
 		
 		// h)
 		
 		System.out.println("h) Lista ordenada descendentemente");
-		ComparadorStringDesc comparadorStringDesc = new ComparadorStringDesc();
+		ComparadorNot comparadorStringDesc = new ComparadorNot(comparadorString);
 		
-		l2.setOrden((Comparator<T>) comparadorStringDesc);
+		l2.setOrden(comparadorStringDesc);
 		imprimirLista(l2);
 
 		// i)
@@ -86,7 +86,7 @@ public class Main {
 		
 		ComparadorCantidadMayor comparadorCant = new ComparadorCantidadMayor();
 
-		ListaVinculada<T> l3 = new ListaVinculada<T>((Comparator<T>) comparadorCant);
+		ListaVinculada<Grupo> l3 = new ListaVinculada<Grupo>(comparadorCant);
 		
 		//Universidad
 		Grupo unicen = new Grupo("Unicen");
@@ -135,7 +135,7 @@ public class Main {
 		unicen.addElemento(humanas);
 		unicen.addElemento(a1);
 		
-		l3.insertarOrdenado((T) unicen);
+		l3.insertarOrdenado(unicen);
 
 		Grupo olimpiadas = new Grupo("Olimpiadas Matematica");
 		Grupo matea2 = new Grupo("Matea2");
@@ -157,16 +157,24 @@ public class Main {
 		olimpiadas.addElemento(matea2);
 		olimpiadas.addElemento(losFibo);
 		
-		l3.insertarOrdenado((T)olimpiadas);
+		l3.insertarOrdenado(olimpiadas);
 		imprimirLista(l3);
 	}
 	
-	public static <T> void imprimirLista(ListaVinculada<T> l) {
-		Iterator<ListaVinculada<T>> iter = l.iterator();	
+	public static <T> void imprimirLista2(ListaVinculada<T> l) {
+		Iterator<T> iter = l.iterator();
 		while (iter.hasNext()) {
-			T next = (T) iter.next();
+			T next = iter.next();
 			System.out.println(next); 
 		}
 	}
-
+	
+	public static <T> void imprimirLista(ListaVinculada<T> l) {
+		Iterator<T> iter = l.iterator();
+		for(T next: l) {
+			next = iter.next();
+			System.out.println(next); 
+		}
+	}
+	
 }

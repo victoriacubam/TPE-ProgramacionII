@@ -2,20 +2,21 @@ package tpe.punto3;
 import java.util.ArrayList;
 
 public class Grupo extends Elemento{
-	String name;
 	ArrayList<Elemento> elementos;
 	
-	public Grupo (String name) {
-		this.name = name;
-		this.elementos = new ArrayList<>();
-	}
-	
-	public Grupo() {
+	public Grupo (String nombre) {
+		super(nombre);
 		this.elementos = new ArrayList<>();
 	}
 	
 	public void addElemento(Elemento e) {
-		this.elementos.add(e);
+		if(!this.elementos.contains(e)) {
+			this.elementos.add(e);	
+		}
+	}
+	
+	public ArrayList<Elemento> getElementos(){
+		return new ArrayList<>(this.elementos);
 	}
 	
 	public int getCantidadAlumnos() {
@@ -26,6 +27,18 @@ public class Grupo extends Elemento{
 	}
 	
 	public String toString() {
-		return this.name + " | Alumnos: " + this.getCantidadAlumnos();
+		return this.nombre + " | Alumnos: " + this.getCantidadAlumnos();
 	}
+	
+	public boolean equals(Object grupo) {
+		try {
+			Grupo g = (Grupo)grupo;
+			return this.nombre.equals(g.getNombre())&&this.getElementos().equals(g.getElementos()); //El arraylist es asi?
+			
+		} catch (Exception e) {
+			return false;
+		}
+	}
+	
+
 }
