@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import tpe.punto3.Elemento;
 
 public class Alumno extends Elemento {
-	String apellido;
-	int dni, edad;
-	ArrayList<String> intereses;
+	private String apellido;
+	private int dni, edad;
+	private ArrayList<String> intereses;
 
 	public Alumno(String nombre, String apellido, int edad, int dni) {
 		super(nombre);
@@ -54,7 +54,7 @@ public class Alumno extends Elemento {
 		try {
 			Alumno otro = (Alumno)a;
 			return this.getNombre().equals(otro.getNombre())&&this.getApellido().equals(otro.getApellido())&&
-					this.getDni()==otro.getDni()&&this.getEdad()==otro.getEdad()&&this.getIntereses().equals(otro.getIntereses()); //El arraylist es asi?
+					this.getDni()==otro.getDni()&&this.getEdad()==otro.getEdad();
 		} catch (Exception e) {
 			return false;
 		}

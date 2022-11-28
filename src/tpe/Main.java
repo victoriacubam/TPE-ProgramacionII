@@ -8,7 +8,6 @@ import tpe.punto3.*;
 
 public class Main {
 	
-
 	public static <T> void main(String[] args) {
 		
 		// a)

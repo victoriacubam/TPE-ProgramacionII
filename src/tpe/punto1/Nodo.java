@@ -12,10 +12,6 @@ public class Nodo<T>{
 	public T getValor() {
 		return this.valor;
 	}
-	
-	public void vincularNodo(Nodo<T> siguiente) {
-		this.siguiente = siguiente;
-	}
 
 	public Nodo<T> getSiguiente() {
 		return this.siguiente;
